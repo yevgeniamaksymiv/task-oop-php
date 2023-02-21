@@ -2,15 +2,15 @@
 
 namespace App;
 
-abstract class Report
+abstract class Report implements ReportInterface
 {
-    protected int $reportNumber;
-    protected string $reportName;
-    protected string $text;
-    protected string $author;
-    protected string $dataCreateReport;
-    protected int $revisionNumber;
-    protected string $dataLastUpdateReport;
+    private int $reportNumber;
+    private string $reportName;
+    private string $text;
+    private string $author;
+    private string $dataCreateReport;
+    private int $revisionNumber;
+    private string $dataLastUpdateReport;
 
     public function __construct($reportNumber, $reportName)
     {
@@ -100,9 +100,14 @@ abstract class Report
     }
 
 
-    public function render(string $value): string
+    public function render(array $array): string
     {
-        return preg_replace('/{(.+?)}/', $value, $this->getText());
+//        $text = '';
+        foreach ($array as $anchor => $value) {
+            $text = str_replace("{{$anchor}}", $value, $this->getText());
+            $this->setText($text);
+        }
+        return $this->getText();
     }
 
     public function nameToUpperCase():string
@@ -110,7 +115,7 @@ abstract class Report
         return mb_strtoupper($this->getReportName());
     }
 
-    public function modifyAuthorName()
+    public function modifyAuthorName(): string
     {
         $words = explode(' ', $this->getAuthor());
         $initials = '';
@@ -119,8 +124,8 @@ abstract class Report
         }
         return "{$words[0]} {$initials}";
     }
-    
-    abstract protected function checkDate(string $date): void;
+
+//    abstract protected function checkDate(string $date): void;
 
     private function save(string $date): void
     {

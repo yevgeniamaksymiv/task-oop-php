@@ -17,10 +17,9 @@ echo $name, PHP_EOL;
 $titleYearReport = $yearReport->nameToUpperCase();
 echo $titleYearReport, PHP_EOL;
 
-$yearReport->setText('     Hello {anchor} world {anchor}      ');
+$yearReport->setText('     Hello {anchor} world {else}      ');
 $text = $yearReport->getText();
 echo $text . '.end', PHP_EOL;
 
-$anchorReplaceText = $yearReport->render('Palmo');
+$anchorReplaceText = $yearReport->render(['anchor' => 'Palmo', 'else' => 'Company']);
 echo $anchorReplaceText, PHP_EOL;
-
