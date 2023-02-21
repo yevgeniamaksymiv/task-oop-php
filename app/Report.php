@@ -102,7 +102,6 @@ abstract class Report implements ReportInterface
 
     public function render(array $array): string
     {
-//        $text = '';
         foreach ($array as $anchor => $value) {
             $text = str_replace("{{$anchor}}", $value, $this->getText());
             $this->setText($text);
@@ -122,7 +121,17 @@ abstract class Report implements ReportInterface
         foreach ([$words[1], $words[2]] as $word) {
             $initials .= mb_substr($word, 0, 1) . '.';
         }
-        return "{$words[0]} {$initials}";
+        return "$words[0] $initials";
+    }
+
+    public function getCompanyInfo(object $company): string {
+
+        $name = $company->getCompanyName();
+        $ipn = $company->getCompanyIPN();
+        $kpp = $company->getCompanyKPP();
+        $director = $company->getDirectorName();
+
+        return "$name" . PHP_EOL . "(ІПН:$ipn/КПП:$kpp).Директор: $director";
     }
 
 //    abstract protected function checkDate(string $date): void;

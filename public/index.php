@@ -23,3 +23,7 @@ echo $text . '.end', PHP_EOL;
 
 $anchorReplaceText = $yearReport->render(['anchor' => 'Palmo', 'else' => 'Company']);
 echo $anchorReplaceText, PHP_EOL;
+
+$company = new \App\Company('Palmo', 12345, 56789, 'Мазепи, 35', 'Григорьєв С.Ю.');
+$info = $yearReport->getCompanyInfo($company);
+echo $info;

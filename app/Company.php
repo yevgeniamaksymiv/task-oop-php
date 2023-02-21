@@ -10,6 +10,23 @@ class Company
     private string $companyAddress;
     private string $directorName;
 
+    public function __construct
+    (
+        string $companyName,
+        int $companyIPN,
+        int $companyKPP,
+        string $companyAddress,
+        string $directorName
+    )
+    {
+        $this->companyName = $companyName;
+        $this->companyIPN = $companyIPN;
+        $this->companyKPP = $companyKPP;
+        $this->companyAddress = $companyAddress;
+        $this->directorName = $directorName;
+    }
+
+
     /**
      * @return string
      */
@@ -49,6 +66,5 @@ class Company
     {
         return $this->directorName;
     }
-
 
 }
